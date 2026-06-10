@@ -351,10 +351,8 @@ canvas {
 }
 
 .guide-hero {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 24px;
+  position: relative;
+  display: block;
   padding: 28px;
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -362,8 +360,34 @@ canvas {
   box-shadow: var(--shadow);
 }
 
+.guide-copy {
+  max-width: 760px;
+  padding-right: 220px;
+}
+
 .guide-hero h1 {
   font-size: 30px;
+}
+
+.guide-actions {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.guide-actions .language-toggle {
+  min-height: 36px;
+}
+
+.guide-actions .language-toggle button {
+  min-height: 34px;
+  padding: 0 12px;
+}
+
+.guide-cta {
+  margin-top: 18px;
 }
 
 .eyebrow {
@@ -549,12 +573,23 @@ canvas {
 }
 
 @media (max-width: 900px) {
-  .guide-hero {
-    flex-direction: column;
-  }
-
   .workflow-strip,
   .interpret-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .guide-hero {
+    padding: 20px;
+  }
+
+  .guide-actions {
+    position: static;
+    margin-bottom: 18px;
+  }
+
+  .guide-copy {
+    padding-right: 0;
   }
 }
