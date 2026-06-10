@@ -4,16 +4,11 @@
 
 [中文说明](#zh)
 
-[![Open Web Tool](https://img.shields.io/badge/Open%20Web%20Tool-Launch%20Now-e6752f?style=for-the-badge)](https://baijinming97.github.io/scratch-assay-visualizer/)
-[![View Guide](https://img.shields.io/badge/View%20Guide-How%20to%20Use-1d2522?style=for-the-badge)](https://baijinming97.github.io/scratch-assay-visualizer/guide.html)
-
 Scratch Assay Visualizer works with green gap masks exported from SWEET. Process the raw microscope images in SWEET first, then import one start-time mask and one end-time mask to generate an overlap area-change map.
 
 ## Quick Links
 
-- **Start here:** [Open Web Tool](https://baijinming97.github.io/scratch-assay-visualizer/)
-- [View Guide](https://baijinming97.github.io/scratch-assay-visualizer/guide.html)
-- [Try Demo Data](https://baijinming97.github.io/scratch-assay-visualizer/?demo=1)
+**Click to use:** [Open Web Tool](https://baijinming97.github.io/scratch-assay-visualizer/) | [Guide](https://baijinming97.github.io/scratch-assay-visualizer/guide.html) | [Demo Data](https://baijinming97.github.io/scratch-assay-visualizer/?demo=1)
 
 ## Recommended Citation
 
@@ -122,18 +117,13 @@ Record `Migration ratio`, and keep the same SWEET settings and tool parameters a
 
 [Back to English](#en)
 
-[![打开在线工具](https://img.shields.io/badge/%E6%89%93%E5%BC%80%E5%9C%A8%E7%BA%BF%E5%B7%A5%E5%85%B7-%E7%AB%8B%E5%8D%B3%E4%BD%BF%E7%94%A8-e6752f?style=for-the-badge)](https://baijinming97.github.io/scratch-assay-visualizer/)
-[![查看使用教程](https://img.shields.io/badge/%E6%9F%A5%E7%9C%8B%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B-Guide-1d2522?style=for-the-badge)](https://baijinming97.github.io/scratch-assay-visualizer/guide.html)
-
 这是一个配合 SWEET 使用的划痕实验面积变化可视化工具。
 
 先用 SWEET 处理原始显微图，导出绿色 gap 蒙版；再把开始时间和结束时间两张绿色蒙版导入本网页，即可生成 overlap 面积变化图。
 
 ## 一键打开
 
-- **从这里开始：** [打开在线工具](https://baijinming97.github.io/scratch-assay-visualizer/)
-- [查看使用教程](https://baijinming97.github.io/scratch-assay-visualizer/guide.html)
-- [打开演示数据](https://baijinming97.github.io/scratch-assay-visualizer/?demo=1)
+**点击使用：** [打开在线工具](https://baijinming97.github.io/scratch-assay-visualizer/) | [查看教程](https://baijinming97.github.io/scratch-assay-visualizer/guide.html) | [演示数据](https://baijinming97.github.io/scratch-assay-visualizer/?demo=1)
 
 ## 推荐引用格式
 
