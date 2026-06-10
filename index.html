@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Scratch Assay Analysis</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="workspace" aria-label="Scratch assay analysis">
+        <header class="topbar">
+          <div>
+            <h1 data-i18n="appTitle">Scratch Assay Analysis</h1>
+            <p data-i18n="subtitle">Select start-time and end-time green gap-mask images to highlight the center-aligned migration area.</p>
+          </div>
+          <div class="actions">
+            <div class="language-toggle" role="group" aria-label="语言 / Language">
+              <button id="langZhButton" type="button" data-lang="zh" aria-pressed="false">中文</button>
+              <button id="langEnButton" type="button" data-lang="en" aria-pressed="true">English</button>
+            </div>
+            <button id="runButton" type="button" data-i18n="runButton" disabled>Generate</button>
+            <button id="downloadButton" type="button" data-i18n="downloadPngButton" disabled>Download PNG</button>
+          </div>
+        </header>
+
+        <section class="controls" aria-label="Image inputs and settings">
+          <label class="file-picker">
+            <span data-i18n="startImageLabel">Start-time image</span>
+            <input id="startImageInput" type="file" accept="image/png,image/jpeg,image/webp" />
+            <strong id="startImageName" data-empty-label="true">No file selected</strong>
+          </label>
+          <label class="file-picker">
+            <span data-i18n="endImageLabel">End-time image</span>
+            <input id="endImageInput" type="file" accept="image/png,image/jpeg,image/webp" />
+            <strong id="endImageName" data-empty-label="true">No file selected</strong>
+          </label>
+
+          <div class="offset-control">
+            <span data-i18n="endOffsetLabel">End-time position</span>
+            <div class="offset-row">
+              <button id="endOffsetLeftButton" class="icon-button" type="button" aria-label="Move end-time position left" title="Move end-time position left">←</button>
+              <strong id="endOffsetValue">0 px</strong>
+              <button id="endOffsetRightButton" class="icon-button" type="button" aria-label="Move end-time position right" title="Move end-time position right">→</button>
+              <button id="endOffsetResetButton" type="button" data-i18n="endOffsetReset">Reset</button>
+            </div>
+          </div>
+
+          <details class="advanced-settings">
+            <summary data-i18n="advancedSummary">Advanced settings</summary>
+            <div class="advanced-grid">
+              <label class="range-control">
+                <span data-i18n="thresholdLabel">Green threshold</span>
+                <input id="thresholdInput" type="range" min="1" max="20" value="4" />
+                <strong id="thresholdValue">4</strong>
+              </label>
+              <label class="range-control">
+                <span data-i18n="minRunLabel">Minimum run width</span>
+                <input id="minRunInput" type="range" min="1" max="30" value="5" />
+                <strong id="minRunValue">5 px</strong>
+              </label>
+            </div>
+          </details>
+        </section>
+
+        <section class="stage" aria-label="Image previews">
+          <article class="preview-panel">
+            <header data-i18n="endMaskHeader">End-time mask</header>
+            <canvas id="endCanvas"></canvas>
+          </article>
+          <article class="preview-panel result-panel">
+            <header data-i18n="resultHeader">Migration overlay</header>
+            <canvas id="resultCanvas"></canvas>
+          </article>
+        </section>
+
+        <section class="metrics" aria-label="Metrics">
+          <div>
+            <span data-i18n="startGapMetric">Start gap</span>
+            <strong id="startAreaMetric">-</strong>
+          </div>
+          <div>
+            <span data-i18n="endGapMetric">End gap</span>
+            <strong id="endAreaMetric">-</strong>
+          </div>
+          <div>
+            <span data-i18n="migrationMetric">Migration ratio</span>
+            <strong id="migrationMetric">-</strong>
+          </div>
+          <div>
+            <span data-i18n="netMetric">Net change</span>
+            <strong id="netMetric">-</strong>
+          </div>
+          <div>
+            <span data-i18n="lrMetric">Left / right</span>
+            <strong id="lrMetric">-</strong>
+          </div>
+          <div>
+            <span data-i18n="dxMetric">Center shift</span>
+            <strong id="dxMetric">-</strong>
+          </div>
+        </section>
+
+        <p id="status" class="status" role="status"></p>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
