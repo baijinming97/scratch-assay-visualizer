@@ -6,9 +6,11 @@
 
 Scratch Assay Visualizer works with green gap masks exported from SWEET. Process the raw microscope images in SWEET first, then import one start-time mask and one end-time mask to generate an overlap area-change map.
 
-在线使用：
+## 一键打开 / Quick Links
 
-[https://baijinming97.github.io/scratch-assay-visualizer/](https://baijinming97.github.io/scratch-assay-visualizer/)
+- [打开在线工具 / Open Web Tool](https://baijinming97.github.io/scratch-assay-visualizer/)
+- [查看使用教程 / View Guide](https://baijinming97.github.io/scratch-assay-visualizer/guide.html)
+- [打开演示数据 / Try Demo Data](https://baijinming97.github.io/scratch-assay-visualizer/?demo=1)
 
 ## 适合做什么 / What It Is For
 
