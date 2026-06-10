@@ -10,15 +10,17 @@
     <main class="app-shell">
       <section class="workspace" aria-label="Scratch assay analysis">
         <header class="topbar">
-          <div>
-            <h1 data-i18n="appTitle">Scratch Assay Analysis</h1>
-            <p data-i18n="subtitle">Select start-time and end-time green gap-mask images to highlight the center-aligned migration area.</p>
-          </div>
-          <div class="actions">
+          <div class="app-language">
             <div class="language-toggle" role="group" aria-label="语言 / Language">
               <button id="langZhButton" type="button" data-lang="zh" aria-pressed="false">中文</button>
               <button id="langEnButton" type="button" data-lang="en" aria-pressed="true">English</button>
             </div>
+          </div>
+          <div class="topbar-copy">
+            <h1 data-i18n="appTitle">Scratch Assay Analysis</h1>
+            <p data-i18n="subtitle">Select start-time and end-time green gap-mask images to highlight the center-aligned migration area.</p>
+          </div>
+          <div class="actions tool-actions">
             <button id="runButton" type="button" data-i18n="runButton" disabled>Generate</button>
             <button id="downloadButton" type="button" data-i18n="downloadPngButton" disabled>Download overlap PNG</button>
             <a class="button-link" href="./guide.html" data-i18n="guideLink">Guide</a>
