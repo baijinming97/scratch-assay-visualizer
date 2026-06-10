@@ -20,7 +20,8 @@
               <button id="langEnButton" type="button" data-lang="en" aria-pressed="true">English</button>
             </div>
             <button id="runButton" type="button" data-i18n="runButton" disabled>Generate</button>
-            <button id="downloadButton" type="button" data-i18n="downloadPngButton" disabled>Download PNG</button>
+            <button id="downloadButton" type="button" data-i18n="downloadPngButton" disabled>Download overlap PNG</button>
+            <a class="button-link" href="./guide.html" data-i18n="guideLink">Guide</a>
           </div>
         </header>
 
@@ -64,12 +65,16 @@
         </section>
 
         <section class="stage" aria-label="Image previews">
-          <article class="preview-panel">
+          <article class="preview-panel mask-panel">
+            <header data-i18n="startMaskHeader">Start-time mask</header>
+            <canvas id="startCanvas"></canvas>
+          </article>
+          <article class="preview-panel mask-panel">
             <header data-i18n="endMaskHeader">End-time mask</header>
             <canvas id="endCanvas"></canvas>
           </article>
           <article class="preview-panel result-panel">
-            <header data-i18n="resultHeader">Migration overlay</header>
+            <header data-i18n="resultHeader">Overlap result</header>
             <canvas id="resultCanvas"></canvas>
           </article>
         </section>

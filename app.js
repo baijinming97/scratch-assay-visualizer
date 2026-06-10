@@ -4,7 +4,8 @@ const translations = {
     appTitle: "划痕分析",
     subtitle: "选择开始时间和结束时间的绿色 gap mask 图，生成居中配准后的迁移区域高亮。",
     runButton: "生成",
-    downloadPngButton: "下载 PNG",
+    downloadPngButton: "下载 overlap PNG",
+    guideLink: "教程",
     startImageLabel: "开始时间图片",
     endImageLabel: "结束时间图片",
     endOffsetLabel: "结束时间位置",
@@ -14,8 +15,9 @@ const translations = {
     advancedSummary: "高级参数",
     thresholdLabel: "绿色阈值",
     minRunLabel: "最小连续宽度",
+    startMaskHeader: "开始时间 mask",
     endMaskHeader: "结束时间 mask",
-    resultHeader: "迁移高亮",
+    resultHeader: "Overlap 结果",
     startGapMetric: "开始 gap",
     endGapMetric: "结束 gap",
     migrationMetric: "迁移比例",
@@ -27,7 +29,7 @@ const translations = {
     imageLoadedStatus: "图片已读取，选择另一张后即可生成。",
     readyStatus: "已选择两张图片，可以生成迁移高亮。",
     processingStatus: "正在提取 mask 并做中心配准...",
-    doneStatus: "完成：橙色为开始时间 gap 减去结束时间 gap 的迁移区域，绿色线为结束时间剩余 gap 边界。",
+    doneStatus: "完成：下方 overlap 图中，橙色为开始时间 gap 减去结束时间 gap 的迁移区域，绿色线为结束时间剩余 gap 边界。",
     chooseImageError: "请选择 PNG、JPG 或 WebP 图片。",
     imageReadError: "图片读取失败，请换成 PNG、JPG 或 WebP。",
     missingImagesError: "请先选择开始时间和结束时间图片。",
@@ -40,7 +42,8 @@ const translations = {
     appTitle: "Scratch Assay Analysis",
     subtitle: "Select start-time and end-time green gap-mask images to highlight the center-aligned migration area.",
     runButton: "Generate",
-    downloadPngButton: "Download PNG",
+    downloadPngButton: "Download overlap PNG",
+    guideLink: "Guide",
     startImageLabel: "Start-time image",
     endImageLabel: "End-time image",
     endOffsetLabel: "End-time position",
@@ -50,8 +53,9 @@ const translations = {
     advancedSummary: "Advanced settings",
     thresholdLabel: "Green threshold",
     minRunLabel: "Minimum run width",
+    startMaskHeader: "Start-time mask",
     endMaskHeader: "End-time mask",
-    resultHeader: "Migration overlay",
+    resultHeader: "Overlap result",
     startGapMetric: "Start gap",
     endGapMetric: "End gap",
     migrationMetric: "Migration ratio",
@@ -63,7 +67,7 @@ const translations = {
     imageLoadedStatus: "Image loaded. Choose the other image to generate the overlay.",
     readyStatus: "Two images selected. Ready to generate the migration overlay.",
     processingStatus: "Extracting masks and center-aligning them...",
-    doneStatus: "Done: orange marks the start-time gap minus the end-time gap; the green line marks the remaining end-time gap boundary.",
+    doneStatus: "Done: in the overlap result, orange marks the start-time gap minus the end-time gap; the green line marks the remaining end-time gap boundary.",
     chooseImageError: "Please choose a PNG, JPG, or WebP image.",
     imageReadError: "Could not read the image. Please use PNG, JPG, or WebP.",
     missingImagesError: "Please choose both start-time and end-time images first.",
@@ -90,6 +94,7 @@ const els = {
   endOffsetRightButton: document.getElementById("endOffsetRightButton"),
   endOffsetResetButton: document.getElementById("endOffsetResetButton"),
   endOffsetValue: document.getElementById("endOffsetValue"),
+  startCanvas: document.getElementById("startCanvas"),
   endCanvas: document.getElementById("endCanvas"),
   resultCanvas: document.getElementById("resultCanvas"),
   startAreaMetric: document.getElementById("startAreaMetric"),
@@ -134,7 +139,7 @@ function initialize() {
   els.runButton.addEventListener("click", runAnalysis);
   els.downloadButton.addEventListener("click", () => {
     if (state.resultCanvas) {
-      downloadCanvas(state.resultCanvas, "scratch-migration-overlay.png");
+      downloadCanvas(state.resultCanvas, "scratch-overlap-result.png");
     }
   });
 
@@ -142,6 +147,7 @@ function initialize() {
   setLanguage("en");
   resetMetrics();
   updateRunState();
+  loadDemoIfRequested();
 }
 
 function tr(key, args = null) {
@@ -237,9 +243,7 @@ async function handleImageChange(kind) {
     setImageState(kind, { bitmap, name: file.name });
     nameEl.dataset.fileName = file.name;
     nameEl.textContent = file.name;
-    if (kind === "end") {
-      drawOriginalPreview(bitmap, els.endCanvas);
-    }
+    drawOriginalPreview(bitmap, kind === "start" ? els.startCanvas : els.endCanvas);
     setStatusKey(state.startImage && state.endImage ? "readyStatus" : "imageLoadedStatus");
   } catch (error) {
     console.error(error);
@@ -255,6 +259,9 @@ async function handleImageChange(kind) {
 function setImageState(kind, imageState) {
   if (kind === "start") {
     state.startImage = imageState;
+    if (!imageState) {
+      clearCanvas(els.startCanvas);
+    }
   } else {
     state.endImage = imageState;
     if (!imageState) {
@@ -285,6 +292,46 @@ async function loadBitmap(file) {
     };
     image.src = url;
   });
+}
+
+async function loadDemoIfRequested() {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("demo") !== "1") {
+    return;
+  }
+
+  try {
+    setStatusKey("processingStatus");
+    const [startBitmap, endBitmap] = await Promise.all([
+      loadBitmapFromUrl("./samples/demo-start.png"),
+      loadBitmapFromUrl("./samples/demo-end.png"),
+    ]);
+
+    state.startImage = { bitmap: startBitmap, name: "demo-start.png" };
+    state.endImage = { bitmap: endBitmap, name: "demo-end.png" };
+    els.startImageName.dataset.fileName = "demo-start.png";
+    els.startImageName.textContent = "demo-start.png";
+    els.endImageName.dataset.fileName = "demo-end.png";
+    els.endImageName.textContent = "demo-end.png";
+    state.endOffset = 0;
+    updateEndOffsetValue();
+    drawOriginalPreview(startBitmap, els.startCanvas);
+    drawOriginalPreview(endBitmap, els.endCanvas);
+    updateRunState();
+    runAnalysis();
+  } catch (error) {
+    console.error(error);
+    setStatusKey("imageReadError", null, true);
+  }
+}
+
+async function loadBitmapFromUrl(url) {
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`Could not load ${url}`);
+  }
+  const blob = await response.blob();
+  return loadBitmap(blob);
 }
 
 function runAnalysis() {
@@ -332,6 +379,7 @@ function runAnalysis() {
     const endBoundary = spansToBoundary(endSpans, endPanel.width, endPanel.height);
     const migrationMask = subtractMask(alignedStartMask, endMask);
 
+    drawMaskPreview(startPanel.imageData, alignedStartMask, els.startCanvas);
     drawMaskPreview(endPanel.imageData, endMask, els.endCanvas);
     const overlay = renderOverlay(endPanel.imageData, migrationMask, endBoundary);
     drawImageDataToCanvas(els.resultCanvas, overlay);
@@ -362,7 +410,7 @@ function getEffectivePanel(image, threshold) {
   const ctx = canvas.getContext("2d", { willReadFrequently: true });
   ctx.drawImage(image, 0, 0);
 
-  if (width / height > 1.45) {
+  if (width / height > 1.7) {
     const mid = Math.floor(width / 2);
     const left = ctx.getImageData(0, 0, mid, height);
     const right = ctx.getImageData(mid, 0, width - mid, height);

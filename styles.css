@@ -82,6 +82,23 @@ button {
   cursor: pointer;
 }
 
+.button-link {
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fff;
+  color: var(--ink);
+  padding: 0 14px;
+  text-decoration: none;
+}
+
+.button-link:hover {
+  border-color: var(--accent-strong);
+}
+
 #runButton {
   background: var(--accent);
   border-color: var(--accent);
@@ -250,6 +267,10 @@ button:disabled {
   border-right: 0;
 }
 
+.mask-panel:nth-child(2) {
+  border-right: 0;
+}
+
 .preview-panel header {
   height: 42px;
   display: flex;
@@ -268,7 +289,18 @@ canvas {
   background: #dfe4df;
 }
 
+.mask-panel canvas {
+  height: min(34vh, 320px);
+}
+
+.result-panel {
+  grid-column: 1 / -1;
+  border-top: 1px solid var(--line);
+  border-right: 0;
+}
+
 .result-panel canvas {
+  height: min(66vh, 640px);
   background: #e6e9e6;
 }
 
@@ -312,6 +344,148 @@ canvas {
   color: #a3441e;
 }
 
+.guide-shell {
+  width: min(1040px, 100%);
+  margin: 0 auto;
+  padding: 28px 24px 44px;
+}
+
+.guide-hero {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.guide-hero h1 {
+  font-size: 30px;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: var(--accent-strong);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.guide-primary {
+  flex: 0 0 auto;
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.guide-primary:hover {
+  background: var(--accent-strong);
+  color: #fff;
+}
+
+.guide-section {
+  margin-top: 18px;
+  padding: 22px 24px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+}
+
+.guide-section h2 {
+  margin: 0;
+  font-size: 20px;
+  line-height: 1.3;
+}
+
+.guide-section p {
+  margin-top: 10px;
+}
+
+.workflow-strip,
+.interpret-grid {
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.workflow-strip {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.workflow-strip div,
+.interpret-grid div {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fbfcfa;
+}
+
+.workflow-strip div {
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.guide-list {
+  margin: 12px 0 0;
+  padding-left: 20px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.guide-figure {
+  margin: 16px 0 0;
+}
+
+.guide-figure img {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #edf0ed;
+}
+
+.guide-figure figcaption {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.interpret-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.interpret-grid div {
+  padding: 14px;
+}
+
+.interpret-grid strong {
+  display: block;
+}
+
+.guide-section details {
+  margin-top: 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fbfcfa;
+}
+
+.guide-section summary {
+  padding: 12px 14px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.guide-section details p {
+  margin: 0;
+  padding: 0 14px 14px;
+}
+
 @media (max-width: 1080px) {
   .topbar {
     flex-direction: column;
@@ -319,12 +493,10 @@ canvas {
 
   .controls,
   .advanced-grid,
-  .stage,
   .metrics {
     grid-template-columns: 1fr;
   }
 
-  .preview-panel,
   .metrics div {
     border-right: 0;
     border-bottom: 1px solid var(--line);
@@ -359,6 +531,10 @@ canvas {
     flex: 1 1 120px;
   }
 
+  .actions .button-link {
+    flex: 1 1 120px;
+  }
+
   .offset-control {
     grid-template-columns: 1fr;
   }
@@ -369,5 +545,16 @@ canvas {
 
   .offset-row button:last-child {
     margin-left: auto;
+  }
+}
+
+@media (max-width: 900px) {
+  .guide-hero {
+    flex-direction: column;
+  }
+
+  .workflow-strip,
+  .interpret-grid {
+    grid-template-columns: 1fr;
   }
 }
